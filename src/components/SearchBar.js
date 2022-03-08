@@ -1,62 +1,96 @@
 import React, { useState } from 'react';
+import {
+  getMealsByFirstLetter,
+  getMealsByIngredient,
+  getMealsByName,
+} from '../services/foodApi';
 
 function SearchBar() {
   const [searchInput, setSearchInput] = useState('');
-  const [ingredientSearch, setIngredientSearch] = useState();
-  const [nameSearch, setNameSearch] = useState();
-  const [firstLetterSearch, setFirstLetterSearch] = useState();
+  const [searchType, setSearchType] = useState();
+
+  const handleClickRadio = ({ target }) => {
+    setSearchType(target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    switch (searchType) {
+    case 'ingredientSearch':
+      await getMealsByIngredient(searchInput);
+      break;
+
+    case 'nameSearch':
+      await getMealsByName(searchInput);
+      break;
+
+    case 'firstLetterSearch':
+      if (searchInput.length > 1) {
+        global.alert('Your search must have only 1 (one) character');
+        break;
+      }
+      await getMealsByFirstLetter(searchInput);
+      break;
+
+    default:
+      break;
+    }
+  };
 
   return (
-    <nav>
+    <form onSubmit={ handleSubmit }>
       <input
         type="text"
         data-testid="search-input"
         name="search-input"
         value={ searchInput }
-        onChange={ () => setSearchInput(target.value) }
+        onChange={ ({ target }) => setSearchInput(target.value) }
         placeholder="Search Recipe"
       />
 
       <label htmlFor="ingredient-search-radio">
-        Ingredient
         <input
           type="radio"
           data-testid="ingredient-search-radio"
           id="ingredient-search-radio"
-          name="ingredient-search-radio"
-          value={ ingredientSearch }
-          onClick={ setIngredientSearch }
+          name="search-radio"
+          value="ingredientSearch"
+          onClick={ handleClickRadio }
         />
+        Ingredient
       </label>
 
       <label htmlFor="name-search-radio">
-        Name
         <input
           type="radio"
           data-testid="name-search-radio"
           id="name-search-radio"
-          name="name-search-radio"
-          value={ nameSearch }
-          onClick={ setNameSearch }
+          name="search-radio"
+          value="nameSearch"
+          onClick={ handleClickRadio }
         />
+        Name
       </label>
 
       <label htmlFor="first-letter-search-radio">
-        First Letter
         <input
           type="radio"
           data-testid="first-letter-search-radio"
           id="first-letter-search-radio"
-          name="first-letter-search-radio"
-          value={ firstLetterSearch }
-          onClick={ setFirstLetterSearch }
+          name="search-radio"
+          value="firstLetterSearch"
+          onClick={ handleClickRadio }
         />
+        First Letter
       </label>
 
-      <button type="button" data-testid="exec-search-btn">
+      <button
+        type="submit"
+        data-testid="exec-search-btn"
+      >
         Search
       </button>
-    </nav>
+    </form>
   );
 }
 
