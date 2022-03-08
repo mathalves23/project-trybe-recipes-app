@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
@@ -15,18 +15,24 @@ function Profile() {
       >
         {user}
       </p>
-      <Link
-        to="/done-recipes"
+      <button
+        type="button"
         data-testid="profile-done-btn"
+        onClick={ () => {
+          history.push('/done-recipes');
+        } }
       >
         Done Recipes
-      </Link>
-      <Link
-        to="/favorite-recipes"
+      </button>
+      <button
+        type="button"
         data-testid="profile-favorite-btn"
+        onClick={ () => {
+          history.push('/favorite-recipes');
+        } }
       >
         Favorite Recipes
-      </Link>
+      </button>
       <button
         type="button"
         data-testid="profile-logout-btn"
