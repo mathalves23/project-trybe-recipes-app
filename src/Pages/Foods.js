@@ -9,7 +9,7 @@ function Foods() {
 
   return (
     <div>
-      <Header />
+      <Header route="Foods" hasSearch />
       <Footer />
     </div>
   );
