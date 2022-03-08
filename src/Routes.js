@@ -10,6 +10,8 @@ import ExploreFoodsIngredients from './Pages/ExploreFoodsIngredients';
 import ExploreFoodsNationalities from './Pages/ExploreFoodsNationalities';
 import Foods from './Pages/Foods';
 import Profile from './Pages/Profile';
+import DoneRecipes from './Pages/DoneRecipes';
+import FavoriteRecipes from './Pages/FavoriteRecipes';
 
 const Routes = () => (
   <Switch>
@@ -35,6 +37,8 @@ const Routes = () => (
       component={ ExploreDrinksIngredients }
     />
     <Route exact path="/profile" component={ Profile } />
+    <Route exact path="/done-recipes" component={ DoneRecipes } />
+    <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
   </Switch>
 );
 

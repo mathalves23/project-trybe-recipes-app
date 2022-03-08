@@ -2,14 +2,14 @@ import React from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-function Explore() {
+function FavoriteRecipes() {
   return (
     <div>
-      <Header route="Explore" hasSearch={ false } />
+      <Header route="Favorite Recipes" hasSearch={ false } />
       Aqui ficará o conteúdo da página Explore.
       <Footer />
     </div>
   );
 }
 
-export default Explore;
+export default FavoriteRecipes;
