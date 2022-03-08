@@ -6,7 +6,7 @@ function DoneRecipes() {
   return (
     <div>
       <Header route="Done Recipes" hasSearch={ false } />
-      Aqui ficará o conteúdo da página Explore.
+      Aqui ficará o conteúdo da página Done Recipes.
       <Footer />
     </div>
   );
