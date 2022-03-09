@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import MyContext from '../context/Context';
 import getCocktailsByIngredient,
 { getCocktailsByFirstLetter,
@@ -11,7 +12,8 @@ import {
 } from '../services/foodApi';
 
 function SearchBar() {
-  const { route } = useContext(MyContext);
+  const history = useHistory();
+  const { route, setDrinks, setMeals } = useContext(MyContext);
   const [searchInput, setSearchInput] = useState('');
   const [searchType, setSearchType] = useState('');
 
@@ -19,50 +21,92 @@ function SearchBar() {
     setSearchType(target.value);
   };
 
+  const handleRedirectMeals = ({ meals }) => {
+    if (meals.length === 1) {
+      history.push(`/foods/${meals[0].idMeal}`);
+    }
+  };
+
+  const handleRedirectDrinks = ({ drinks }) => {
+    if (drinks.length === 1) {
+      history.push(`/drinks/${drinks[0].idDrink}`);
+    }
+  };
+
+  const handleSetMeals = async () => {
+    let data;
+    switch (searchType) {
+    case 'ingredientSearch':
+      data = await getMealsByIngredient(searchInput);
+      setMeals(data);
+      handleRedirectMeals(data);
+      break;
+
+    case 'nameSearch':
+      data = await getMealsByName(searchInput);
+      setMeals(data);
+      handleRedirectMeals(data);
+      break;
+
+    case 'firstLetterSearch':
+      if (searchInput.length > 1) {
+        global.alert('Your search must have only 1 (one) character');
+        break;
+      } else {
+        data = await getMealsByFirstLetter(searchInput);
+        setMeals(data);
+        handleRedirectMeals(data);
+      }
+      break;
+
+    default:
+      break;
+    }
+  };
+
+  const handleSetDrinks = async () => {
+    let data;
+    switch (searchType) {
+    case 'ingredientSearch':
+      data = await getCocktailsByIngredient(searchInput);
+      setDrinks(data);
+      handleRedirectDrinks(data);
+      break;
+
+    case 'nameSearch':
+      data = await getCocktailsByName(searchInput);
+      setDrinks(data);
+      handleRedirectDrinks(data);
+      break;
+
+    case 'firstLetterSearch':
+      if (searchInput.length > 1) {
+        global.alert('Your search must have only 1 (one) character');
+        break;
+      } else {
+        data = await getCocktailsByFirstLetter(searchInput);
+        setDrinks(data);
+        handleRedirectDrinks(data);
+      }
+      break;
+
+    default:
+      break;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (route === 'Foods') {
-      switch (searchType) {
-      case 'ingredientSearch':
-        await getMealsByIngredient(searchInput);
-        break;
 
-      case 'nameSearch':
-        await getMealsByName(searchInput);
-        break;
-
-      case 'firstLetterSearch':
-        if (searchInput.length > 1) {
-          global.alert('Your search must have only 1 (one) character');
-          break;
-        }
-        await getMealsByFirstLetter(searchInput);
-        break;
-
-      default:
-        break;
-      }
-    } else {
-      switch (searchType) {
-      case 'ingredientSearch':
-        await getCocktailsByIngredient(searchInput);
-        break;
-
-      case 'nameSearch':
-        await getCocktailsByName(searchInput);
-        break;
-
-      case 'firstLetterSearch':
-        if (searchInput.length > 1) {
-          global.alert('Your search must have only 1 (one) character');
-          break;
-        }
-        await getCocktailsByFirstLetter(searchInput);
-        break;
-
-      default:
-        break;
-      }
+    switch (route) {
+    case 'Foods':
+      handleSetMeals();
+      break;
+    case 'Drinks':
+      handleSetDrinks();
+      break;
+    default:
+      break;
     }
   };
 
