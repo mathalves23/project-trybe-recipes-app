@@ -6,6 +6,8 @@ import { getDrinks } from '../services/drinkAPI';
 
 const Provider = ({ children }) => {
   const [data, setData] = useState('');
+  const [drinks, setDrinks] = useState({});
+  const [meals, setMeals] = useState({});
   const [route, setRoute] = useState('');
   const [allFoods, setAllFoods] = useState([]);
   const [allDrinks, setAllDrinks] = useState([]);
@@ -23,6 +25,10 @@ const Provider = ({ children }) => {
   const context = {
     data,
     setData,
+    drinks,
+    setDrinks,
+    meals,
+    setMeals,
     route,
     setRoute,
     allFoods,
