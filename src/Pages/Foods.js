@@ -1,12 +1,54 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import MyContext from '../context/Context';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Foods() {
+  const {
+    allFoods,
+    getAllFoods,
+  } = useContext(MyContext);
+  const MAX_LENGTH = 12;
+
+  useEffect(() => {
+    getAllFoods();
+    // fonte: https://github.com/facebook/create-react-app/issues/6880 da proxima linha
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function renderLengthValidation(params) {
+    if (params !== undefined) {
+      return params.map((food, i) => {
+        if (i < MAX_LENGTH) {
+          return (
+            <div
+              key={ food.idMeal }
+              data-testid={ `${i}-recipe-card` }
+            >
+              <img
+                src={ food.strMealThumb }
+                alt={ food.strMeal }
+                data-testid={ `${i}-card-img` }
+              />
+              <p
+                data-testid={ `${i}-card-name` }
+              >
+                { food.strMeal }
+              </p>
+            </div>
+          );
+        }
+        return null;
+      });
+    }
+  }
+
+  if (allFoods.length === 0) return <span>Loading...</span>;
+
   return (
     <div>
       <Header route="Foods" hasSearch />
-      Aqui ficará o conteúdo da página Foods.
+      { renderLengthValidation(allFoods) }
       <Footer />
     </div>
   );

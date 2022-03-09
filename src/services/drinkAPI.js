@@ -24,3 +24,11 @@ export const getCocktailsByFirstLetter = async (firstLetter) => {
     console.log(error);
   }
 };
+
+export const getDrinks = () => {
+  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  return fetch(URL)
+    .then((response) => response.json())
+    .then((data) => data.drinks)
+    .catch((error) => console.log(error));
+};
