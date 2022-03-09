@@ -4,10 +4,13 @@ import MyContext from './Context';
 
 const Provider = ({ children }) => {
   const [data, setData] = useState('');
+  const [route, setRoute] = useState('');
 
   const context = {
     data,
     setData,
+    route,
+    setRoute,
   };
 
   return (

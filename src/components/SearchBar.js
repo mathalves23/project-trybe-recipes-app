@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import MyContext from '../context/Context';
+import getCocktailsByIngredient,
+{ getCocktailsByFirstLetter,
+  getCocktailsByName,
+} from '../services/drinkAPI';
 import {
   getMealsByFirstLetter,
   getMealsByIngredient,
@@ -6,8 +11,9 @@ import {
 } from '../services/foodApi';
 
 function SearchBar() {
+  const { route } = useContext(MyContext);
   const [searchInput, setSearchInput] = useState('');
-  const [searchType, setSearchType] = useState();
+  const [searchType, setSearchType] = useState('');
 
   const handleClickRadio = ({ target }) => {
     setSearchType(target.value);
@@ -15,25 +21,48 @@ function SearchBar() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    switch (searchType) {
-    case 'ingredientSearch':
-      await getMealsByIngredient(searchInput);
-      break;
+    if (route === 'Foods') {
+      switch (searchType) {
+      case 'ingredientSearch':
+        await getMealsByIngredient(searchInput);
+        break;
 
-    case 'nameSearch':
-      await getMealsByName(searchInput);
-      break;
+      case 'nameSearch':
+        await getMealsByName(searchInput);
+        break;
 
-    case 'firstLetterSearch':
-      if (searchInput.length > 1) {
-        global.alert('Your search must have only 1 (one) character');
+      case 'firstLetterSearch':
+        if (searchInput.length > 1) {
+          global.alert('Your search must have only 1 (one) character');
+          break;
+        }
+        await getMealsByFirstLetter(searchInput);
+        break;
+
+      default:
         break;
       }
-      await getMealsByFirstLetter(searchInput);
-      break;
+    } else {
+      switch (searchType) {
+      case 'ingredientSearch':
+        await getCocktailsByIngredient(searchInput);
+        break;
 
-    default:
-      break;
+      case 'nameSearch':
+        await getCocktailsByName(searchInput);
+        break;
+
+      case 'firstLetterSearch':
+        if (searchInput.length > 1) {
+          global.alert('Your search must have only 1 (one) character');
+          break;
+        }
+        await getCocktailsByFirstLetter(searchInput);
+        break;
+
+      default:
+        break;
+      }
     }
   };
 
