@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from './Context';
-import getFoods from '../services/foodApi';
-import { getDrinks } from '../services/drinkAPI';
+import getFoods, { getRandomFood } from '../services/foodApi';
+import { getDrinks, getRandomDrink } from '../services/drinkAPI';
 
 const Provider = ({ children }) => {
   const [data, setData] = useState('');
   const [route, setRoute] = useState('');
   const [allFoods, setAllFoods] = useState([]);
   const [allDrinks, setAllDrinks] = useState([]);
+  const [randomFood, setRandomFood] = useState([]);
+  const [randomDrink, setRandomDrink] = useState([]);
 
   async function getAllFoods() {
     const response = await getFoods();
@@ -20,6 +22,16 @@ const Provider = ({ children }) => {
     setAllDrinks(response);
   }
 
+  async function getFoodRandom() {
+    const response = await getRandomFood();
+    setRandomFood(response);
+  }
+
+  async function getDrinkRandom() {
+    const response = await getRandomDrink();
+    setRandomDrink(response);
+  }
+
   const context = {
     data,
     setData,
@@ -29,6 +41,10 @@ const Provider = ({ children }) => {
     getAllFoods,
     allDrinks,
     getAllDrinks,
+    randomFood,
+    getFoodRandom,
+    randomDrink,
+    getDrinkRandom,
   };
 
   return (
