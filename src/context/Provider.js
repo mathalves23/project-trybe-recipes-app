@@ -9,12 +9,8 @@ const Provider = ({ children }) => {
   const [drinks, setDrinks] = useState([]);
   const [meals, setMeals] = useState([]);
   const [route, setRoute] = useState('');
-  // const [allFoods, setAllFoods] = useState([]);
-  // const [allDrinks, setAllDrinks] = useState([]);
   const [storeFoodCategory, setstoreFoodCategory] = useState([]);
   const [storeDrinkCategory, setstoreDrinkCategory] = useState([]);
-  // const [randomFood, setRandomFood] = useState([]);
-  // const [randomDrink, setRandomDrink] = useState([]);
 
   async function getAllFoods() {
     const response = await getFoods();
@@ -55,17 +51,13 @@ const Provider = ({ children }) => {
     setMeals,
     route,
     setRoute,
-    // allFoods,
     getAllFoods,
-    // allDrinks,
     getAllDrinks,
     storeFoodCategory,
     getFoodsCategory,
     storeDrinkCategory,
     getDrinksCategory,
-    // randomFood,
     getFoodRandom,
-    // randomDrink,
     getDrinkRandom,
   };
 
