@@ -4,30 +4,28 @@ import MyContext from './Context';
 import { getDrinks, fetchDrinksCategory } from '../services/drinkAPI';
 import { fetchFoodsCategory, getFoods } from '../services/foodApi';
 
-
 const Provider = ({ children }) => {
   const [data, setData] = useState('');
-  const [drinks, setDrinks] = useState({});
-  const [meals, setMeals] = useState({});
+  const [drinks, setDrinks] = useState([]);
+  const [meals, setMeals] = useState([]);
   const [route, setRoute] = useState('');
-  const [allFoods, setAllFoods] = useState([]);
-  const [allDrinks, setAllDrinks] = useState([]);
+  // const [allFoods, setAllFoods] = useState([]);
+  // const [allDrinks, setAllDrinks] = useState([]);
   const [storeFoodCategory, setstoreFoodCategory] = useState([]);
   const [storeDrinkCategory, setstoreDrinkCategory] = useState([]);
-  const [randomFood, setRandomFood] = useState([]);
-  const [randomDrink, setRandomDrink] = useState([]);
-
+  // const [randomFood, setRandomFood] = useState([]);
+  // const [randomDrink, setRandomDrink] = useState([]);
 
   async function getAllFoods() {
     const response = await getFoods();
-    setAllFoods(response);
+    setMeals(response);
   }
 
   async function getAllDrinks() {
     const response = await getDrinks();
-    setAllDrinks(response);
+    console.log(response);
+    setDrinks(response);
   }
-
 
   async function getFoodsCategory() {
     const response = await fetchFoodsCategory();
@@ -38,15 +36,15 @@ const Provider = ({ children }) => {
     const response = await fetchDrinksCategory();
     setstoreDrinkCategory(response);
     console.log(response);
-
+  }
   async function getFoodRandom() {
     const response = await getRandomFood();
-    setRandomFood(response);
+    setMeals(response);
   }
 
   async function getDrinkRandom() {
     const response = await getRandomDrink();
-    setRandomDrink(response);
+    setDrinks(response);
   }
 
   const context = {
@@ -58,17 +56,17 @@ const Provider = ({ children }) => {
     setMeals,
     route,
     setRoute,
-    allFoods,
+    // allFoods,
     getAllFoods,
-    allDrinks,
+    // allDrinks,
     getAllDrinks,
     storeFoodCategory,
     getFoodsCategory,
     storeDrinkCategory,
     getDrinksCategory,
-    randomFood,
+    // randomFood,
     getFoodRandom,
-    randomDrink,
+    // randomDrink,
     getDrinkRandom,
   };
 
@@ -78,7 +76,6 @@ const Provider = ({ children }) => {
     </MyContext.Provider>
   );
 };
-
 Provider.propTypes = {
   children: PropTypes.element,
 }.isRequired;
