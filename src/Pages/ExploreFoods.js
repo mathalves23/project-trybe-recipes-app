@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import MyContext from '../context/Context';
 
 function ExploreFoods() {
+  const {
+    randomFood,
+    getFoodRandom,
+  } = useContext(MyContext);
+
+  useEffect(() => {
+    getFoodRandom();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const history = useHistory();
   return (
     <div>
@@ -30,7 +41,7 @@ function ExploreFoods() {
         type="button"
         data-testid="explore-surprise"
         onClick={ () => {
-          history.push('/explore/foods/${}');
+          history.push(`/foods/${randomFood[0].idMeal}`);
         } }
       >
         Surprise me!
