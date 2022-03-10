@@ -4,6 +4,7 @@ import MyContext from './Context';
 import { getDrinks, fetchDrinksCategory } from '../services/drinkAPI';
 import { fetchFoodsCategory, getFoods } from '../services/foodApi';
 
+
 const Provider = ({ children }) => {
   const [data, setData] = useState('');
   const [drinks, setDrinks] = useState({});
@@ -13,6 +14,9 @@ const Provider = ({ children }) => {
   const [allDrinks, setAllDrinks] = useState([]);
   const [storeFoodCategory, setstoreFoodCategory] = useState([]);
   const [storeDrinkCategory, setstoreDrinkCategory] = useState([]);
+  const [randomFood, setRandomFood] = useState([]);
+  const [randomDrink, setRandomDrink] = useState([]);
+
 
   async function getAllFoods() {
     const response = await getFoods();
@@ -24,6 +28,7 @@ const Provider = ({ children }) => {
     setAllDrinks(response);
   }
 
+
   async function getFoodsCategory() {
     const response = await fetchFoodsCategory();
     setstoreFoodCategory(response);
@@ -33,6 +38,15 @@ const Provider = ({ children }) => {
     const response = await fetchDrinksCategory();
     setstoreDrinkCategory(response);
     console.log(response);
+
+  async function getFoodRandom() {
+    const response = await getRandomFood();
+    setRandomFood(response);
+  }
+
+  async function getDrinkRandom() {
+    const response = await getRandomDrink();
+    setRandomDrink(response);
   }
 
   const context = {
@@ -52,6 +66,10 @@ const Provider = ({ children }) => {
     getFoodsCategory,
     storeDrinkCategory,
     getDrinksCategory,
+    randomFood,
+    getFoodRandom,
+    randomDrink,
+    getDrinkRandom,
   };
 
   return (

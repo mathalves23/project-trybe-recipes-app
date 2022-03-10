@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import MyContext from '../context/Context';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -23,21 +24,23 @@ function Drinks() {
       return params.map((drink, i) => {
         if (i < MAX_LENGTH) {
           return (
-            <div
-              key={ drink.idDrink }
-              data-testid={ `${i}-recipe-card` }
-            >
-              <img
-                src={ drink.strDrinkThumb }
-                alt={ drink.strDrink }
-                data-testid={ `${i}-card-img` }
-              />
-              <p
-                data-testid={ `${i}-card-name` }
+            <Link to={ `/drinks/${drink.idDrink}` }>
+              <div
+                key={ drink.idDrink }
+                data-testid={ `${i}-recipe-card` }
               >
-                { drink.strDrink }
-              </p>
-            </div>
+                <img
+                  src={ drink.strDrinkThumb }
+                  alt={ drink.strDrink }
+                  data-testid={ `${i}-card-img` }
+                />
+                <p
+                  data-testid={ `${i}-card-name` }
+                >
+                  { drink.strDrink }
+                </p>
+              </div>
+            </Link>
           );
         }
         return null;

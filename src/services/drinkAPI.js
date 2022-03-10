@@ -48,4 +48,11 @@ export const fetchDrinksCategory = async () => {
   } catch (error) {
     console.log('catch', error);
   }
+
+export const getRandomDrink = () => {
+  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  return fetch(URL)
+    .then((response) => response.json())
+    .then((data) => data.drinks)
+    .catch((error) => console.log(error));
 };

@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import MyContext from '../context/Context';
 
 function ExploreDrinks() {
+  const {
+    randomDrink,
+    getDrinkRandom,
+  } = useContext(MyContext);
+
   const history = useHistory();
+
+  useEffect(() => {
+    getDrinkRandom();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div>
       <Header route="Explore Drinks" hasSearch={ false } />
@@ -21,7 +33,7 @@ function ExploreDrinks() {
         type="button"
         data-testid="explore-surprise"
         onClick={ () => {
-          history.push('/explore/drinks/${}');
+          history.push(`/drinks/${randomDrink[0].idDrink}`);
         } }
       >
         Surprise me!
