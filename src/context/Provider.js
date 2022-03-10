@@ -19,7 +19,6 @@ const Provider = ({ children }) => {
 
   async function getAllDrinks() {
     const response = await getDrinks();
-    console.log(response);
     setDrinks(response);
   }
 

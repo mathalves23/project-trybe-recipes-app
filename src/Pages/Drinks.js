@@ -15,14 +15,13 @@ function Drinks() {
 
   useEffect(() => {
     getAllDrinks();
-    console.log(drinks);
     // fonte: https://github.com/facebook/create-react-app/issues/6880 da proxima linha
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function renderLengthValidation(params) {
     console.log(params);
-    if (params !== undefined) {
+    if (params) {
       return params.map((drink, index) => {
         if (index < MAX_LENGTH) {
           return (
@@ -49,10 +48,12 @@ function Drinks() {
         }
         return null;
       });
-    }
+    } global.alert('Sorry, we haven\'t found any recipes for these filters.');
   }
 
-  if (drinks.length === 0) return <span>Loading...</span>;
+  if (drinks && drinks.length === 0) {
+    return <span>Loading...</span>;
+  }
 
   return (
     <div>
