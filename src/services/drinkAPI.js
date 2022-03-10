@@ -60,3 +60,11 @@ export const getRandomDrink = () => {
     .then((data) => data.drinks)
     .catch((error) => console.log(error));
 };
+
+export const getIngredientsDrink = () => {
+  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+  return fetch(URL)
+    .then((response) => response.json())
+    .then((data) => data.drinks)
+    .catch((error) => console.log(error));
+};
