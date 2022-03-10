@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import MyContext from '../context/Context';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -21,21 +22,23 @@ function Foods() {
       return params.map((food, i) => {
         if (i < MAX_LENGTH) {
           return (
-            <div
-              key={ food.idMeal }
-              data-testid={ `${i}-recipe-card` }
-            >
-              <img
-                src={ food.strMealThumb }
-                alt={ food.strMeal }
-                data-testid={ `${i}-card-img` }
-              />
-              <p
-                data-testid={ `${i}-card-name` }
+            <Link to={ `/foods/${food.idMeal}` }>
+              <div
+                key={ food.idMeal }
+                data-testid={ `${i}-recipe-card` }
               >
-                { food.strMeal }
-              </p>
-            </div>
+                <img
+                  src={ food.strMealThumb }
+                  alt={ food.strMeal }
+                  data-testid={ `${i}-card-img` }
+                />
+                <p
+                  data-testid={ `${i}-card-name` }
+                >
+                  { food.strMeal }
+                </p>
+              </div>
+            </Link>
           );
         }
         return null;
