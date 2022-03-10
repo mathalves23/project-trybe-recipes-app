@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from './Context';
-import { getDrinks, fetchDrinksCategory } from '../services/drinkAPI';
-import { fetchFoodsCategory, getFoods } from '../services/foodApi';
+import { getDrinks, fetchDrinksCategory, getRandomDrink } from '../services/drinkAPI';
+import { fetchFoodsCategory, getFoods, getRandomFood } from '../services/foodApi';
 
 const Provider = ({ children }) => {
   const [data, setData] = useState('');

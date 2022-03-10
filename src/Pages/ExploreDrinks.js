@@ -6,7 +6,7 @@ import MyContext from '../context/Context';
 
 function ExploreDrinks() {
   const {
-    randomDrink,
+    drinks,
     getDrinkRandom,
   } = useContext(MyContext);
 
@@ -33,7 +33,7 @@ function ExploreDrinks() {
         type="button"
         data-testid="explore-surprise"
         onClick={ () => {
-          history.push(`/drinks/${randomDrink[0].idDrink}`);
+          history.push(`/drinks/${drinks[0].idDrink}`);
         } }
       >
         Surprise me!
