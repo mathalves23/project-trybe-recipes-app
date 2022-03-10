@@ -19,7 +19,7 @@ function ButtonsCategorized({ route }) {
   }, []);
 
   function handleClick(category) {
-    if (route.includes('drink')) {
+    if (route.includes('rink')) {
       getDrinksByCategory(category);
     } else getFoodsByCategory(category);
   }
