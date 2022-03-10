@@ -47,7 +47,7 @@ function Foods() {
         return null;
       });
     }
-    return (<p>Nada encontrado</p>);
+    return (<p>Nada encontrado.</p>);
   }
 
   if (meals.length === 0) return <span>Loading...</span>;
