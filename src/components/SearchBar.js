@@ -21,13 +21,15 @@ function SearchBar() {
     setSearchType(target.value);
   };
 
-  const handleRedirectMeals = ({ meals }) => {
+  const handleRedirectMeals = (meals) => {
+    console.log(meals);
     if (meals.length === 1) {
       history.push(`/foods/${meals[0].idMeal}`);
     }
   };
 
-  const handleRedirectDrinks = ({ drinks }) => {
+  const handleRedirectDrinks = (drinks) => {
+    console.log(drinks);
     if (drinks.length === 1) {
       history.push(`/drinks/${drinks[0].idDrink}`);
     }
@@ -69,12 +71,14 @@ function SearchBar() {
     switch (searchType) {
     case 'ingredientSearch':
       data = await getCocktailsByIngredient(searchInput);
+      console.log(data);
       setDrinks(data);
       handleRedirectDrinks(data);
       break;
 
     case 'nameSearch':
       data = await getCocktailsByName(searchInput);
+      console.log(data);
       setDrinks(data);
       handleRedirectDrinks(data);
       break;
@@ -85,6 +89,7 @@ function SearchBar() {
         break;
       } else {
         data = await getCocktailsByFirstLetter(searchInput);
+        console.log(data);
         setDrinks(data);
         handleRedirectDrinks(data);
       }
@@ -102,7 +107,7 @@ function SearchBar() {
     case 'Foods':
       handleSetMeals();
       break;
-    case 'Drinks':
+    case 'drinks':
       handleSetDrinks();
       break;
     default:
