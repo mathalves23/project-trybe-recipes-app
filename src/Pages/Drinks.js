@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import MyContext from '../context/Context';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Categories from '../components/Categories';
 
 function Drinks() {
   const {
@@ -48,7 +49,8 @@ function Drinks() {
 
   return (
     <div>
-      <Header route="Drinks" hasSearch />
+      <Header route="drinks" hasSearch />
+      <Categories route="drinks" />
       { renderLengthValidation(allDrinks) }
       <Footer />
     </div>
