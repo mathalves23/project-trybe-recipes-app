@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from './Context';
-import getFoods, { getRandomFood } from '../services/foodApi';
-import { getDrinks, getRandomDrink } from '../services/drinkAPI';
+import { getDrinks, fetchDrinksCategory } from '../services/drinkAPI';
+import { fetchFoodsCategory, getFoods } from '../services/foodApi';
+
 
 const Provider = ({ children }) => {
   const [data, setData] = useState('');
@@ -11,8 +12,11 @@ const Provider = ({ children }) => {
   const [route, setRoute] = useState('');
   const [allFoods, setAllFoods] = useState([]);
   const [allDrinks, setAllDrinks] = useState([]);
+  const [storeFoodCategory, setstoreFoodCategory] = useState([]);
+  const [storeDrinkCategory, setstoreDrinkCategory] = useState([]);
   const [randomFood, setRandomFood] = useState([]);
   const [randomDrink, setRandomDrink] = useState([]);
+
 
   async function getAllFoods() {
     const response = await getFoods();
@@ -23,6 +27,17 @@ const Provider = ({ children }) => {
     const response = await getDrinks();
     setAllDrinks(response);
   }
+
+
+  async function getFoodsCategory() {
+    const response = await fetchFoodsCategory();
+    setstoreFoodCategory(response);
+  }
+
+  async function getDrinksCategory() {
+    const response = await fetchDrinksCategory();
+    setstoreDrinkCategory(response);
+    console.log(response);
 
   async function getFoodRandom() {
     const response = await getRandomFood();
@@ -47,6 +62,10 @@ const Provider = ({ children }) => {
     getAllFoods,
     allDrinks,
     getAllDrinks,
+    storeFoodCategory,
+    getFoodsCategory,
+    storeDrinkCategory,
+    getDrinksCategory,
     randomFood,
     getFoodRandom,
     randomDrink,
