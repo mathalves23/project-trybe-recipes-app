@@ -50,8 +50,6 @@ function Foods() {
     return (<p>Nada encontrado.</p>);
   }
 
-  if (meals.length === 0) return <span>Loading...</span>;
-
   return (
     <div>
       <Header route="Foods" hasSearch />
