@@ -14,6 +14,8 @@ function ButtonsCategorized({ title }) {
     getDrinksCategory,
     setMeals,
     setDrinks,
+    getAllFoods,
+    getAllDrinks,
   } = useContext(MyContext);
 
   useEffect(() => {
@@ -22,31 +24,52 @@ function ButtonsCategorized({ title }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleAllCategories = () => {
+    if (title.includes('rink')) {
+      getAllDrinks();
+    } else {
+      getAllFoods();
+    }
+  };
+
   async function handleClick(category) {
     if (title.includes('rink')) {
       setDrinks(await getCocktailsByCategory(category));
-    } else setMeals(await getMealsByCategory(category));
+    } else {
+      setMeals(await getMealsByCategory(category));
+    }
   }
 
   function categoryHandler(allCategories) {
-    if (allCategories !== undefined) {
+    if (allCategories) {
       return (
-        allCategories.map((category, index) => {
-          if (index < MAX_LENGTH) {
-            return (
-              <button
-                type="button"
-                key={ category.strCategory }
-                index={ index }
-                data-testid={ `${category.strCategory}-category-filter` }
-                onClick={ () => handleClick(category.strCategory) }
-              >
-                { category.strCategory }
-              </button>
-            );
-          }
-          return null;
-        })
+        <div>
+          <button
+            data-testid="All-category-filter"
+            type="button"
+            onClick={ handleAllCategories }
+          >
+            All
+          </button>
+          {allCategories.map((category, index) => {
+            if (index < MAX_LENGTH) {
+              return (
+                <button
+                  type="button"
+                  key={ category.strCategory }
+                  index={ index }
+                  data-testid={ `${category.strCategory}-category-filter` }
+                  onClick={
+                    () => { handleClick(category.strCategory); }
+                  }
+                >
+                  { category.strCategory }
+                </button>
+              );
+            }
+            return null;
+          })}
+        </div>
       );
     }
   }
