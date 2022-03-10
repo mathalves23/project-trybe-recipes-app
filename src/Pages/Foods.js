@@ -7,7 +7,7 @@ import Categories from '../components/Categories';
 
 function Foods() {
   const {
-    allFoods,
+    meals,
     getAllFoods,
   } = useContext(MyContext);
   const MAX_LENGTH = 12;
@@ -20,21 +20,23 @@ function Foods() {
 
   function renderLengthValidation(params) {
     if (params !== undefined) {
-      return params.map((food, i) => {
-        if (i < MAX_LENGTH) {
+      return params.map((food, index) => {
+        if (index < MAX_LENGTH) {
           return (
-            <Link to={ `/foods/${food.idMeal}` }>
+            <Link
+              to={ `/foods/${food.idMeal}` }
+              key={ food.idMeal }
+            >
               <div
-                key={ food.idMeal }
-                data-testid={ `${i}-recipe-card` }
+                data-testid={ `${index}-recipe-card` }
               >
                 <img
                   src={ food.strMealThumb }
                   alt={ food.strMeal }
-                  data-testid={ `${i}-card-img` }
+                  data-testid={ `${index}-card-img` }
                 />
                 <p
-                  data-testid={ `${i}-card-name` }
+                  data-testid={ `${index}-card-name` }
                 >
                   { food.strMeal }
                 </p>
@@ -45,15 +47,16 @@ function Foods() {
         return null;
       });
     }
+    return (<p>Nada encontrado</p>);
   }
 
-  if (allFoods.length === 0) return <span>Loading...</span>;
+  if (meals.length === 0) return <span>Loading...</span>;
 
   return (
     <div>
       <Header route="Foods" hasSearch />
       <Categories route="foods" />
-      { renderLengthValidation(allFoods) }
+      { renderLengthValidation(meals) }
       <Footer />
     </div>
   );

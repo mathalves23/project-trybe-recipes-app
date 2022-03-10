@@ -11,7 +11,7 @@ export const getMealsByIngredient = async (ingredient) => {
   try {
     const response = await fetch(URL);
     const data = await response.json();
-    return data;
+    return data.meals;
   } catch (error) {
     console.log(error);
   }
@@ -22,7 +22,7 @@ export const getMealsByName = async (name) => {
   try {
     const response = await fetch(URL);
     const data = await response.json();
-    return data;
+    return data.meals;
   } catch (error) {
     console.log(error);
   }
@@ -33,7 +33,7 @@ export const getMealsByFirstLetter = async (firstLetter) => {
   try {
     const response = await fetch(URL);
     const data = await response.json();
-    return data;
+    return data.meals;
   } catch (error) {
     console.log(error);
   }
@@ -59,4 +59,3 @@ export const getRandomFood = () => {
 };
 
 export default getFoods;
-

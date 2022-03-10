@@ -7,7 +7,7 @@ import Categories from '../components/Categories';
 
 function Drinks() {
   const {
-    allDrinks,
+    drinks,
     getAllDrinks,
   } = useContext(MyContext);
 
@@ -15,27 +15,31 @@ function Drinks() {
 
   useEffect(() => {
     getAllDrinks();
+    console.log(drinks);
     // fonte: https://github.com/facebook/create-react-app/issues/6880 da proxima linha
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function renderLengthValidation(params) {
+    console.log(params);
     if (params !== undefined) {
-      return params.map((drink, i) => {
-        if (i < MAX_LENGTH) {
+      return params.map((drink, index) => {
+        if (index < MAX_LENGTH) {
           return (
-            <Link to={ `/drinks/${drink.idDrink}` }>
+            <Link
+              to={ `/drinks/${drink.idDrink}` }
+              key={ drink.idDrink }
+            >
               <div
-                key={ drink.idDrink }
-                data-testid={ `${i}-recipe-card` }
+                data-testid={ `${index}-recipe-card` }
               >
                 <img
                   src={ drink.strDrinkThumb }
                   alt={ drink.strDrink }
-                  data-testid={ `${i}-card-img` }
+                  data-testid={ `${index}-card-img` }
                 />
                 <p
-                  data-testid={ `${i}-card-name` }
+                  data-testid={ `${index}-card-name` }
                 >
                   { drink.strDrink }
                 </p>
@@ -48,13 +52,13 @@ function Drinks() {
     }
   }
 
-  if (allDrinks.length === 0) return <span>Loading...</span>;
+  if (drinks.length === 0) return <span>Loading...</span>;
 
   return (
     <div>
       <Header route="drinks" hasSearch />
       <Categories route="drinks" />
-      { renderLengthValidation(allDrinks) }
+      { renderLengthValidation(drinks) }
       <Footer />
     </div>
   );
