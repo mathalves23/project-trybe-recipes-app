@@ -56,7 +56,7 @@ function Drinks() {
 
   return (
     <div>
-      <Header route="drinks" hasSearch />
+      <Header route="Drinks" hasSearch />
       <Categories route="drinks" />
       { renderLengthValidation(drinks) }
       <Footer />

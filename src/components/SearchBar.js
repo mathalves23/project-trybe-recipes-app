@@ -107,7 +107,7 @@ function SearchBar() {
     case 'Foods':
       handleSetMeals();
       break;
-    case 'drinks':
+    case 'Drinks':
       handleSetDrinks();
       break;
     default:
