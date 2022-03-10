@@ -39,7 +39,6 @@ const Provider = ({ children }) => {
   async function getDrinksCategory() {
     const response = await fetchDrinksCategory();
     setstoreDrinkCategory(response);
-    console.log(response);
   }
   async function getFoodRandom() {
     const response = await getRandomFood();
