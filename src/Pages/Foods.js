@@ -19,7 +19,7 @@ function Foods() {
   }, []);
 
   function renderLengthValidation(params) {
-    if (params !== undefined) {
+    if (params) {
       return params.map((food, index) => {
         if (index < MAX_LENGTH) {
           return (
@@ -46,11 +46,10 @@ function Foods() {
         }
         return null;
       });
-    }
-    return (<p>Nada encontrado.</p>);
+    } global.alert('Sorry, we haven\'t found any recipes for these filters.');
   }
 
-  if (meals.length === 0) return <span>Loading...</span>;
+  if (meals && meals.length === 0) return <span>Loading...</span>;
 
   return (
     <div>

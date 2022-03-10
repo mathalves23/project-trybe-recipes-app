@@ -21,16 +21,14 @@ function SearchBar() {
     setSearchType(target.value);
   };
 
-  const handleRedirectMeals = (meals) => {
-    console.log(meals);
-    if (meals.length === 1) {
+  const handleVerifyMeals = (meals) => {
+    if (meals && meals.length === 1) {
       history.push(`/foods/${meals[0].idMeal}`);
     }
   };
 
-  const handleRedirectDrinks = (drinks) => {
-    console.log(drinks);
-    if (drinks.length === 1) {
+  const handleVerifyDrinks = (drinks) => {
+    if (drinks && drinks.length === 1) {
       history.push(`/drinks/${drinks[0].idDrink}`);
     }
   };
@@ -41,13 +39,13 @@ function SearchBar() {
     case 'ingredientSearch':
       data = await getMealsByIngredient(searchInput);
       setMeals(data);
-      handleRedirectMeals(data);
+      handleVerifyMeals(data);
       break;
 
     case 'nameSearch':
       data = await getMealsByName(searchInput);
       setMeals(data);
-      handleRedirectMeals(data);
+      handleVerifyMeals(data);
       break;
 
     case 'firstLetterSearch':
@@ -57,7 +55,7 @@ function SearchBar() {
       } else {
         data = await getMealsByFirstLetter(searchInput);
         setMeals(data);
-        handleRedirectMeals(data);
+        handleVerifyMeals(data);
       }
       break;
 
@@ -71,16 +69,14 @@ function SearchBar() {
     switch (searchType) {
     case 'ingredientSearch':
       data = await getCocktailsByIngredient(searchInput);
-      console.log(data);
       setDrinks(data);
-      handleRedirectDrinks(data);
+      handleVerifyDrinks(data);
       break;
 
     case 'nameSearch':
       data = await getCocktailsByName(searchInput);
-      console.log(data);
       setDrinks(data);
-      handleRedirectDrinks(data);
+      handleVerifyDrinks(data);
       break;
 
     case 'firstLetterSearch':
@@ -89,9 +85,8 @@ function SearchBar() {
         break;
       } else {
         data = await getCocktailsByFirstLetter(searchInput);
-        console.log(data);
         setDrinks(data);
-        handleRedirectDrinks(data);
+        handleVerifyDrinks(data);
       }
       break;
 

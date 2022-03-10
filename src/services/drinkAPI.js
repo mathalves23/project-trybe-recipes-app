@@ -35,9 +35,7 @@ export const getDrinks = async () => {
   const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   try {
     const response = await fetch(URL);
-    console.log(response);
     const data = await response.json();
-    console.log(data.drinks);
     return data.drinks;
   } catch (error) {
     console.log(error);
