@@ -1,4 +1,4 @@
-function getFoods() {
+export function getFoods() {
   const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   return fetch(URL)
     .then((response) => response.json())
@@ -39,6 +39,17 @@ export const getMealsByFirstLetter = async (firstLetter) => {
   }
 };
 
+export const fetchFoodsCategory = async () => {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getRandomFood = () => {
   const URL = 'https://www.themealdb.com/api/json/v1/1/random.php';
   return fetch(URL)
@@ -48,3 +59,4 @@ export const getRandomFood = () => {
 };
 
 export default getFoods;
+
