@@ -54,7 +54,7 @@ function Foods() {
   return (
     <div>
       <Header route="Foods" hasSearch />
-      <Categories route="foods" />
+      <Categories title="foods" />
       { renderLengthValidation(meals) }
       <Footer />
     </div>

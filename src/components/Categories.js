@@ -1,15 +1,19 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from '../context/Context';
+import { getMealsByCategory } from '../services/foodApi';
+import { getCocktailsByCategory } from '../services/drinkAPI';
 
 const MAX_LENGTH = 5;
 
-function ButtonsCategorized({ route }) {
+function ButtonsCategorized({ title }) {
   const {
     storeFoodCategory,
     storeDrinkCategory,
     getFoodsCategory,
     getDrinksCategory,
+    setMeals,
+    setDrinks,
   } = useContext(MyContext);
 
   useEffect(() => {
@@ -18,10 +22,10 @@ function ButtonsCategorized({ route }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function handleClick(category) {
-    if (route.includes('rink')) {
-      getDrinksByCategory(category);
-    } else getFoodsByCategory(category);
+  async function handleClick(category) {
+    if (title.includes('rink')) {
+      setDrinks(await getCocktailsByCategory(category));
+    } else setMeals(await getMealsByCategory(category));
   }
 
   function categoryHandler(allCategories) {
@@ -49,7 +53,7 @@ function ButtonsCategorized({ route }) {
 
   return (
     <div>
-      { route === 'drinks' && storeDrinkCategory.drinks
+      { title === 'drinks' && storeDrinkCategory.drinks
         ? categoryHandler(storeDrinkCategory.drinks)
         : categoryHandler(storeFoodCategory.meals)}
     </div>
@@ -57,7 +61,7 @@ function ButtonsCategorized({ route }) {
 }
 
 ButtonsCategorized.propTypes = {
-  route: PropTypes.string,
+  title: PropTypes.string,
 }.isRequired;
 
 export default ButtonsCategorized;
