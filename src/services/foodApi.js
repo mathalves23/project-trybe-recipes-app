@@ -77,6 +77,8 @@ export const getIngredientsFood = () => {
     .catch((error) => console.log(error));
 };
 
+// Requisição feita de forma dinâmica porque a página RecipeInProgress apresenta tanto Foods quanto Drinks.
+// Essa requisição vai interferir no requisito 34.
 export const getRecipeById = async (pathname, id) => {
   const source = pathname.includes('/foods') ? 'themealdb' : 'thecocktaildb';
   const URL = `https://www.${source}.com/api/json/v1/1/lookup.php?i=${id}`;
