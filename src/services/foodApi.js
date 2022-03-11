@@ -77,4 +77,12 @@ export const getIngredientsFood = () => {
     .catch((error) => console.log(error));
 };
 
+export const getRecipeById = async (pathname, id) => {
+  const source = pathname.includes('/foods') ? 'themealdb' : 'thecocktaildb';
+  const URL = `https://www.${source}.com/api/json/v1/1/lookup.php?i=${id}`;
+  return fetch(URL)
+    .then((response) => response.json())
+    .then((data) => data.meals || data.drinks);
+};
+
 export default getFoods;
