@@ -14,6 +14,7 @@ import DoneRecipes from './Pages/DoneRecipes';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import RecipeDetails from './Pages/RecipeDetails';
 import RecipeInProgress from './Pages/RecipeInProgress';
+import NotFound from './components/NotFound';
 
 const Routes = () => (
   <Switch>
@@ -96,6 +97,10 @@ const Routes = () => (
       exact
       path="/drinks/:id/in-progress"
       component={ RecipeInProgress }
+    />
+    <Route
+      path="*"
+      component={ NotFound }
     />
   </Switch>
 );
