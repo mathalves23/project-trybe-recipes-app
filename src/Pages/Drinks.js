@@ -20,7 +20,6 @@ function Drinks() {
   }, []);
 
   function renderLengthValidation(params) {
-    console.log(params);
     if (params) {
       return params.map((drink, index) => {
         if (index < MAX_LENGTH) {
@@ -58,7 +57,7 @@ function Drinks() {
   return (
     <div>
       <Header route="Drinks" hasSearch />
-      <Categories route="drinks" />
+      <Categories title="drinks" />
       { renderLengthValidation(drinks) }
       <Footer />
     </div>

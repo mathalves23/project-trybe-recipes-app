@@ -13,6 +13,7 @@ import Profile from './Pages/Profile';
 import DoneRecipes from './Pages/DoneRecipes';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import RecipeDetails from './Pages/RecipeDetails';
+import RecipeInProgress from './Pages/RecipeInProgress';
 
 const Routes = () => (
   <Switch>
@@ -85,6 +86,16 @@ const Routes = () => (
       exact
       path="/drinks/:id"
       component={ RecipeDetails }
+    />
+    <Route
+      exact
+      path="/foods/:id/in-progress"
+      component={ RecipeInProgress }
+    />
+    <Route
+      exact
+      path="/drinks/:id/in-progress"
+      component={ RecipeInProgress }
     />
   </Switch>
 );
