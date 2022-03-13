@@ -4,8 +4,6 @@ import MyContext from '../context/Context';
 import { getMealsByCategory } from '../services/foodApi';
 import { getCocktailsByCategory } from '../services/drinkAPI';
 
-const MAX_LENGTH = 5;
-
 function ButtonsCategorized({ title }) {
   const {
     storeFoodCategory,
@@ -16,6 +14,8 @@ function ButtonsCategorized({ title }) {
     setDrinks,
     getAllFoods,
     getAllDrinks,
+    prevCategory,
+    setPrevCategory,
   } = useContext(MyContext);
 
   useEffect(() => {
@@ -26,18 +26,18 @@ function ButtonsCategorized({ title }) {
 
   const handleAllCategories = () => {
     if (title.includes('rink')) {
-      getAllDrinks();
-    } else {
-      getAllFoods();
-    }
+      return getAllDrinks();
+    } getAllFoods();
   };
 
-  async function handleClick(category) {
-    if (title.includes('rink')) {
+  async function handleOneCategory(category) {
+    if (title.includes('rink') && category !== prevCategory) {
+      setPrevCategory(category);
       setDrinks(await getCocktailsByCategory(category));
-    } else {
+    } else if (title.includes('ood') && category !== prevCategory) {
+      setPrevCategory(category);
       setMeals(await getMealsByCategory(category));
-    }
+    } else handleAllCategories();
   }
 
   function categoryHandler(allCategories) {
@@ -51,24 +51,19 @@ function ButtonsCategorized({ title }) {
           >
             All
           </button>
-          {allCategories.map((category, index) => {
-            if (index < MAX_LENGTH) {
-              return (
-                <button
-                  type="button"
-                  key={ category.strCategory }
-                  index={ index }
-                  data-testid={ `${category.strCategory}-category-filter` }
-                  onClick={
-                    () => { handleClick(category.strCategory); }
-                  }
-                >
-                  { category.strCategory }
-                </button>
-              );
-            }
-            return null;
-          })}
+          {allCategories.map((category, index) => (
+            <button
+              type="button"
+              key={ category.strCategory }
+              index={ index }
+              data-testid={ `${category.strCategory}-category-filter` }
+              onClick={
+                () => { handleOneCategory(category.strCategory); }
+              }
+            >
+              { category.strCategory }
+            </button>
+          ))}
         </div>
       );
     }
@@ -76,9 +71,9 @@ function ButtonsCategorized({ title }) {
 
   return (
     <div>
-      { title === 'drinks' && storeDrinkCategory.drinks
-        ? categoryHandler(storeDrinkCategory.drinks)
-        : categoryHandler(storeFoodCategory.meals)}
+      { title === 'drinks' && storeDrinkCategory
+        ? categoryHandler(storeDrinkCategory)
+        : categoryHandler(storeFoodCategory)}
     </div>
   );
 }

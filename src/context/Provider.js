@@ -22,6 +22,7 @@ const Provider = ({ children }) => {
   const [ingredientsFood, setIngredientsFood] = useState([]);
   const [ingredientsDrink, setIngredientsDrink] = useState([]);
   const [nationality, setNationality] = useState([]);
+  const [prevCategory, setPrevCategory] = useState('');
 
   async function getAllFoods() {
     const response = await getFoods();
@@ -90,6 +91,8 @@ const Provider = ({ children }) => {
     getDrinkIngredient,
     getNationalityFood,
     nationality,
+    prevCategory,
+    setPrevCategory,
   };
 
   return (
