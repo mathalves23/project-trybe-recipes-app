@@ -1,3 +1,5 @@
+const MAMBO = 5;
+
 export default async function getCocktailsByIngredient(ingredient) {
   const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   try {
@@ -58,7 +60,7 @@ export const fetchDrinksCategory = async () => {
   try {
     const response = await fetch(URL);
     const data = await response.json();
-    return data;
+    return data.drinks.slice(0, MAMBO);
   } catch (error) {
     console.log('catch', error);
   }
