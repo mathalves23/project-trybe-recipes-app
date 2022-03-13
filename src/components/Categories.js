@@ -16,6 +16,8 @@ function ButtonsCategorized({ title }) {
     setDrinks,
     getAllFoods,
     getAllDrinks,
+    prevCategory,
+    setPrevCategory,
   } = useContext(MyContext);
 
   useEffect(() => {
@@ -24,19 +26,25 @@ function ButtonsCategorized({ title }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleAllCategories = () => {
-    if (title.includes('rink')) {
+  // const handleAllCategories = () => {
+  //   if (title.includes('rink')) {
+  //     getAllDrinks();
+  //   } else {
+  //     getAllFoods();
+  //   }
+  // };
+
+  async function handleOneCategory(category) {
+    if (title.includes('rink') && category !== prevCategory) {
+      setPrevCategory(category);
+      setDrinks(await getCocktailsByCategory(category));
+    } else if (title.includes('ood') && category !== prevCategory) {
+      setPrevCategory(category);
+      setMeals(await getMealsByCategory(category));
+    } else if (title.includes('rink')) {
       getAllDrinks();
     } else {
       getAllFoods();
-    }
-  };
-
-  async function handleClick(category) {
-    if (title.includes('rink')) {
-      setDrinks(await getCocktailsByCategory(category));
-    } else {
-      setMeals(await getMealsByCategory(category));
     }
   }
 
@@ -47,7 +55,7 @@ function ButtonsCategorized({ title }) {
           <button
             data-testid="All-category-filter"
             type="button"
-            onClick={ handleAllCategories }
+            onClick={ handleOneCategory }
           >
             All
           </button>
@@ -60,7 +68,7 @@ function ButtonsCategorized({ title }) {
                   index={ index }
                   data-testid={ `${category.strCategory}-category-filter` }
                   onClick={
-                    () => { handleClick(category.strCategory); }
+                    () => { handleOneCategory(category.strCategory); }
                   }
                 >
                   { category.strCategory }
