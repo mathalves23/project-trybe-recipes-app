@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropType from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { getRecipeById } from '../services/foodApi';
 import RecipeInfo from '../components/RecipeInfo';
+import FinishButton from '../components/buttons/FinishButton';
 
 function RecipeInProgress({
   location: { pathname },
@@ -11,10 +13,11 @@ function RecipeInProgress({
 }) {
   const [recipe, setRecipe] = useState({});
   const [boxChecked, setBoxChecked] = useState([]);
-  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [ingredients, setIngredients] = useState([]);
 
-  const { idMeal, idDrink } = recipe;
   const key = pathname.includes('foods') ? 'meals' : 'cocktails';
+  const { idMeal, idDrink } = recipe;
 
   useEffect(() => {
     if (!localStorage.getItem('inProgressRecipes')) {
@@ -38,14 +41,6 @@ function RecipeInProgress({
     getRecipe();
   }, [id, pathname]);
 
-  const handleCheck = ({ target }) => {
-    if (target.checked) {
-      setBoxChecked((prev) => [...prev, target.id]);
-    } else {
-      setBoxChecked((prev) => prev.filter((step) => step !== target.id));
-    }
-  };
-
   useEffect(() => {
     if (Object.keys(recipe).length > 0) {
       const progress = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -53,22 +48,32 @@ function RecipeInProgress({
         ...progress[key],
         [idMeal || idDrink]: boxChecked,
       };
+      if (boxChecked.length === 0) {
+        delete progress[key][idMeal || idDrink];
+      }
       localStorage.setItem('inProgressRecipes', JSON.stringify(progress));
     }
   }, [boxChecked, idDrink, idMeal, key, recipe]);
 
   return (
     <main>
+      {shouldRedirect && <Redirect to="/done-recipes" />}
       <RecipeInfo
         recipe={ recipe }
-        handleCheckbox={ handleCheck }
+        setBoxChecked={ setBoxChecked }
         boxChecked={ boxChecked }
+        type={ key }
         url={ window.location.href.replace('/in-progress', '') }
-        setButtonDisabled={ setButtonDisabled }
+        ingredients={ { ingredients, setIngredients } }
+        pathname={ pathname }
       />
-      <button data-testid="finish-recipe-btn" type="button" disabled={ buttonDisabled }>
-        Finish Recipe
-      </button>
+      <FinishButton
+        recipe={ recipe }
+        setShouldRedirect={ setShouldRedirect }
+        type={ key }
+        boxChecked={ boxChecked }
+        ingredients={ ingredients }
+      />
     </main>
   );
 }
