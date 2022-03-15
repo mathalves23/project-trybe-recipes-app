@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../../images/shareIcon.svg';
 
-function ShareButton({ url }) {
+function ShareButton({ url, dataTest }) {
   const [copyUrl, setCopyUrl] = useState(false);
 
   const shareRecipe = () => {
@@ -21,13 +21,13 @@ function ShareButton({ url }) {
 
   return (
     <>
-      <button
-        type="button"
-        data-testid="share-btn"
+      <input
+        type="image"
+        data-testid={ dataTest }
         onClick={ shareRecipe }
-      >
-        <img src={ shareIcon } alt="shareIcon" />
-      </button>
+        src={ shareIcon }
+        alt="Share button"
+      />
       {copyUrl && <p>Link copied!</p>}
     </>
   );
@@ -36,5 +36,6 @@ function ShareButton({ url }) {
 export default ShareButton;
 
 ShareButton.propTypes = {
-  url: PropTypes.string.isRequired,
-};
+  url: PropTypes.string,
+  dataTest: PropTypes.string,
+}.isRequired;
