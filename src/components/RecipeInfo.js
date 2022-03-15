@@ -56,7 +56,7 @@ function RecipeInfo({
         pathname={ pathname }
         recipe={ recipe }
       />
-      <ShareButton url={ url } />
+      <ShareButton url={ url } dataTest="share-btn" />
       <h2 data-testid="recipe-category">{strCategory}</h2>
       {strAlcoholic && <h3>{strAlcoholic}</h3>}
       <ul>
