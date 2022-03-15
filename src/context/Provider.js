@@ -9,6 +9,7 @@ import { getDrinks,
 import { fetchFoodsCategory,
   getFoods,
   getIngredientsFood,
+  getNationality,
   getRandomFood } from '../services/foodApi';
 
 const Provider = ({ children }) => {
@@ -20,6 +21,8 @@ const Provider = ({ children }) => {
   const [storeDrinkCategory, setstoreDrinkCategory] = useState([]);
   const [ingredientsFood, setIngredientsFood] = useState([]);
   const [ingredientsDrink, setIngredientsDrink] = useState([]);
+  const [nationality, setNationality] = useState([]);
+  const [prevCategory, setPrevCategory] = useState('');
 
   async function getAllFoods() {
     const response = await getFoods();
@@ -60,6 +63,11 @@ const Provider = ({ children }) => {
     setIngredientsDrink(response);
   }
 
+  async function getNationalityFood() {
+    const response = await getNationality();
+    setNationality(response);
+  }
+
   const context = {
     data,
     setData,
@@ -81,6 +89,10 @@ const Provider = ({ children }) => {
     ingredientsFood,
     ingredientsDrink,
     getDrinkIngredient,
+    getNationalityFood,
+    nationality,
+    prevCategory,
+    setPrevCategory,
   };
 
   return (

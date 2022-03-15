@@ -1,3 +1,5 @@
+const MAMBO = 5;
+
 export function getFoods() {
   const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   return fetch(URL)
@@ -55,7 +57,7 @@ export const fetchFoodsCategory = async () => {
   try {
     const response = await fetch(URL);
     const data = await response.json();
-    return data;
+    return data.meals.slice(0, MAMBO);
   } catch (error) {
     console.log(error);
   }
@@ -85,6 +87,25 @@ export const getRecipeById = async (pathname, id) => {
   return fetch(URL)
     .then((response) => response.json())
     .then((data) => data.meals || data.drinks);
+};
+
+export const getNationality = () => {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  return fetch(URL)
+    .then((response) => response.json())
+    .then((data) => data.meals)
+    .catch((error) => console.log(error));
+};
+
+export const getMealsByArea = async (area) => {
+  const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.meals;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default getFoods;
