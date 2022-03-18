@@ -53,6 +53,7 @@ function RecipeInfo({
       />
       <h1 data-testid="recipe-title">{strMeal || strDrink}</h1>
       <FavoriteButton
+        dataTest="favorite-btn"
         pathname={ pathname }
         recipe={ recipe }
       />

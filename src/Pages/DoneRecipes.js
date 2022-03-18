@@ -3,34 +3,6 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import ShareButton from '../components/buttons/ShareButton';
 
-const mockRecipes = [
-  {
-    id: '52771',
-    type: 'food',
-    nationality: 'Italian',
-    category: 'Vegetarian',
-    alcoholicOrNot: '',
-    name: 'Spicy Arrabiata Penne',
-    image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-    doneDate: '23/06/2020',
-    tags: [
-      'Pasta',
-      'Curry',
-    ],
-  },
-  {
-    id: '178319',
-    type: 'drink',
-    nationality: '',
-    category: 'Cocktail',
-    alcoholicOrNot: 'Alcoholic',
-    name: 'Aquamarine',
-    image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-    doneDate: '23/06/2020',
-    tags: [],
-  },
-];
-
 function DoneRecipes() {
   const [initialRecipes, setInitialRecipes] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState([]);
@@ -40,7 +12,6 @@ function DoneRecipes() {
     const recipes = localStorage.getItem('doneRecipes');
     setDoneRecipes(JSON.parse(recipes));
     setInitialRecipes(JSON.parse(recipes));
-    setDoneRecipes(mockRecipes);
   }, []);
 
   const handleUrl = ({ type, id }) => (type === 'drink' ? `http://localhost:3000/drinks/${id}` : `http://localhost:3000/foods/${id}`);
@@ -64,7 +35,7 @@ function DoneRecipes() {
   );
 
   const handleRenderTags = (tag, index) => {
-    if (tag) {
+    if (tag && typeof tag !== 'string') {
       return (
         <div>
           {tag.map((item, idx) => (
