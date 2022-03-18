@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
-function FavoriteButton({ recipe, pathname }) {
+function FavoriteButton({ recipe, pathname, dataTest }) {
   const {
     strMeal,
     strDrink,
@@ -15,20 +15,27 @@ function FavoriteButton({ recipe, pathname }) {
     strMealThumb,
     strDrinkThumb,
   } = recipe;
+
   const nameRecipe = strMeal || strDrink;
   const idRecipe = idMeal || idDrink;
 
   const [isFavorite, setIsFavorite] = useState(false);
 
   const isRecipeFavorite = () => {
-    if (!localStorage.getItem('favoriteRecipes')) {
+    const favoritesRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    console.log(nameRecipe, idRecipe);
+    if (!favoritesRecipes) {
       return localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
-    const favoritesRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     setIsFavorite(
       favoritesRecipes.some(({ name, id }) => name === nameRecipe && id === idRecipe),
     );
   };
+
+  useEffect(() => {
+    isRecipeFavorite();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     isRecipeFavorite();
@@ -66,18 +73,16 @@ function FavoriteButton({ recipe, pathname }) {
   };
 
   return (
-    <button
-      type="button"
-      data-testid="favorite-btn"
+    <input
+      type="image"
+      alt="favorite Image"
+      data-testid={ dataTest }
       onClick={ handleFavoriteRecipe }
       src={
         isFavorite ? blackHeartIcon : whiteHeartIcon
       }
-    >
-      {isFavorite
-        ? <img src={ blackHeartIcon } alt="blackHeartIcon" />
-        : <img src={ whiteHeartIcon } alt="whiteHeartIcon" />}
-    </button>
+    />
+
   );
 }
 export default FavoriteButton;
