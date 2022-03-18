@@ -44,6 +44,7 @@ function RecipeInProgress({
   useEffect(() => {
     if (Object.keys(recipe).length > 0) {
       const progress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      console.log(progress);
       progress[key] = {
         ...progress[key],
         [idMeal || idDrink]: boxChecked,

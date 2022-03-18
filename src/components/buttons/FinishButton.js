@@ -25,7 +25,7 @@ function FinishButton({ recipe, setShouldRedirect, type, boxChecked, ingredients
     name: strMeal || strDrink,
     image: strMealThumb || strDrinkThumb,
     doneDate: new Date().toLocaleString(),
-    tags: strTags,
+    tags: strTags ? strTags.split(',') : strTags,
   };
 
   const handleClick = () => {
@@ -37,6 +37,7 @@ function FinishButton({ recipe, setShouldRedirect, type, boxChecked, ingredients
           doneRecipe,
         ]),
       );
+      console.log(doneRecipe);
     } else {
       localStorage.setItem('doneRecipes', JSON.stringify([doneRecipe]));
     }

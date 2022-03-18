@@ -35,7 +35,7 @@ function DoneRecipes() {
   );
 
   const handleRenderTags = (tag, index) => {
-    if (tag) {
+    if (tag && typeof tag !== 'string') {
       return (
         <div>
           {tag.map((item, idx) => (
