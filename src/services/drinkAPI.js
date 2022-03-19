@@ -1,5 +1,13 @@
 const MAMBO = 5;
 
+export function getDrinks() {
+  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  return fetch(URL)
+    .then((response) => response.json())
+    .then((data) => data.drinks)
+    .catch((error) => console.log(error));
+}
+
 export default async function getCocktailsByIngredient(ingredient) {
   const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   try {
@@ -35,17 +43,6 @@ export const getCocktailsByFirstLetter = async (firstLetter) => {
 
 export const getCocktailsByCategory = async (category) => {
   const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
-  try {
-    const response = await fetch(URL);
-    const data = await response.json();
-    return data.drinks;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const getDrinks = async () => {
-  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   try {
     const response = await fetch(URL);
     const data = await response.json();
