@@ -12,9 +12,10 @@ import Foods from './Pages/Foods';
 import Profile from './Pages/Profile';
 import DoneRecipes from './Pages/DoneRecipes';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
-import RecipeDetails from './Pages/RecipeDetails';
 import RecipeInProgress from './Pages/RecipeInProgress';
 import NotFound from './components/NotFound';
+import FoodDetails from './Pages/FoodDetails';
+import DrinkDetails from './Pages/DrinkDetails';
 
 const Routes = () => (
   <Switch>
@@ -81,12 +82,12 @@ const Routes = () => (
     <Route
       exact
       path="/foods/:id"
-      component={ RecipeDetails }
+      component={ FoodDetails }
     />
     <Route
       exact
       path="/drinks/:id"
-      component={ RecipeDetails }
+      component={ DrinkDetails }
     />
     <Route
       exact

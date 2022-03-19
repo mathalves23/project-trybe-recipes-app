@@ -66,3 +66,18 @@
     transform: rotate(-10deg);
   }
 }
+
+.recomendation-section {
+  max-width: 100%;
+  overflow: hidden;
+  padding-bottom: 50px;
+}
+
+.recomendation-card-container {
+  display: flex;
+  overflow-x: scroll;
+}
+
+.recomentation-img {
+  width: 50vw;
+}
